@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./main.css">
+  <title>obs clock</title>
+</head>
+<bodyinput>
+  <style>
+    @font-face {
+      font-family: 'digitalNumber';
+      src: url('./font/pocket_calculator/POCKC___.TTF')  format("truetype");
+    }
+
+    #clock{
+      font-family: 'digitalNumber';
+      font-size: 50px;
+      color: white;
+    }
+  </style>
+  <div id="clock">
+    <h1 id="date">0000/00/00()</h1>
+    <h1 id="time">00:00:00</h1>
+  </div>
+  Red<input type="range" name="red" id="red" min="0" max="255" step="1" value="255"><br>
+  Green <input type="range" name="green" id="green" min="0" max="255" step="1" value="255"><br>
+  Blue <input type="range" name="blue" id="blue" min="0" max="255" step="1" value="255"><br>
+
+  <script >
+    let dateAry = ["Sun","Mon","Tue","Wed","Thr","Fri","Sat"]
+    let year,month,day,dateToday,hour,minute,second;
+    let red,green,blue;
+
+    function getTime(){
+      const date = new Date();
+        [year,month,today]  = date.toLocaleDateString().split("/");
+        console.log(dateAry[date.getDay()])
+        day = dateAry[date.getDay()];
+        [hour,minute,second] = date.toLocaleTimeString().split(":");
+      document.getElementById("date").textContent = `${year}/${month}/${today}(${day})`;
+      document.getElementById("time").textContent = `${hour}:${minute}:${second}`;
+}
+
+function changeColor(){
+    red     = document.getElementById("red").value;
+    green   = document.getElementById("green").value;
+    blue    = document.getElementById("blue").value;
+    console.log(`${red},${green},${blue}`);
+
+    document.getElementById("clock").style.color = `rgb(${red},${green},${blue})`;
+}
+    setInterval(getTime,1000);
+    setInterval(changeColor,250);
+  </script>
+</body>
+</html>
